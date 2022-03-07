@@ -1,0 +1,7 @@
+<p>board works!</p>
+<form (ngSubmit)="onSubmit()" [formGroup]="dashboardForm">
+    <input type="number" placeholder="Number" formControlName="number">
+    <input type="text" placeholder="first value" formControlName="fValue">
+    <input type="text" placeholder="second value" formControlName="sValue">
+    <button type="submit">Submit!</button>
+</form>
