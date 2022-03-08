@@ -1,7 +1,11 @@
 import { NgModule } from '@angular/core';
 // import { initializeApp } from 'firebase/app';
 import { AngularFireModule } from "@angular/fire/compat";
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+// import { BUCKET } from '@angular/fire/storage';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
@@ -22,13 +26,13 @@ const fireEnvironment = {
     messagingSenderId: "575271177229",
     appId: "1:575271177229:web:a28de95a9e200ceab19944"
   }
-}
+};
 
 const router: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'board', component: BoardComponent, canActivate: [AuthGuard] },
   { path: '', redirectTo: '/login', pathMatch: 'full' }
-]
+];
 
 @NgModule({
   declarations: [
@@ -43,9 +47,15 @@ const router: Routes = [
     RouterModule.forRoot(router, { enableTracing: false }),
     AngularFireModule.initializeApp(fireEnvironment.firebase, '/'),
     AngularFirestoreModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireStorageModule,
+    AngularFireAuthModule,
   ],
-  providers: [AskService],
+  providers: [
+    AskService,
+    // {provide: BUCKET, useValue: fireEnvironment.firebase.storageBucket}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
