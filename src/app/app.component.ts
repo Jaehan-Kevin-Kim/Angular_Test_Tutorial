@@ -11,10 +11,14 @@ export class AppComponent {
   constructor(askService: AskService) {
     // this.DataBase = db;
     // askService.addItem('board', { number: 5, hello: 'hello', today: new Date() });
-    askService.getItem('board').valueChanges().subscribe((res: any) => {
-      console.log(res);
+    askService.getItem('board').valueChanges({ idField: 'idx' }).subscribe((arg: any) => {
+      //위 valueChanges()안에 {idField:'idx'}를 넣음으로써, idx 값이 출력이 되도록 변환 함. (이 부분은 잘 이해 안되긴 함)
+      console.log("arg: ", arg);
     })
-    askService.testPipeTake();
+    // askService.testPipeTake();
+    // askService.updateData3('board', { number: 10, new_text: 'hello updaters2' }, '7lujwaLwchCyV68oHFic')
+    askService.updateData2('board', { new_text: 'only new new text2' }, 'NRU1udnenBCsuy1aA8Sl')
+    // askService.updateData3('board', { new_text: 'only new new text' }, '7lujwaLwchCyV68oHFic')
 
 
   }

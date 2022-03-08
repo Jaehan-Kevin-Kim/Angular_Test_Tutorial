@@ -72,6 +72,34 @@ export class AskService {
 
   }
 
+  updateData(db_name: string, parameter: any, target_id: any) {
+    this.collectionArray[db_name].stateChanges().pipe(take(1), map((actions: any) => {
+      return actions.map((a: any) => {
+        // this.collectionArray[db_name].stateChanges().pipe(map((actions: any) => {
+        //   return actions.map((a: any) => {
+        const data = a.payload.doc.data(); // 데이터
+        const ID = a.payload.doc.id; // 고유 키 값
+        if (target_id == ID) {
+          this.collectionArray[db_name].doc(ID).update(parameter);
+        }
+        return data;
+      })
+    })
+    ).subscribe();
+  }
+
+  updateData2(db_name: string, parameter: any, target_id: any) {
+    this.collectionArray[db_name].doc(target_id).update(parameter);
+  }
+
+  updateData3(db_name: string, parameter: any, target_id: any) {
+    this.collectionArray[db_name].doc(target_id).set(parameter);
+  }
+
+  deleteData(db_name: string, target_id: any) {
+    this.collectionArray[db_name].doc(target_id).delete();
+  }
+
   test1() {
     return new Observable((arg) => {
       arg.next({ test: 1 });
